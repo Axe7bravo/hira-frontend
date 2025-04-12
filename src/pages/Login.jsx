@@ -34,7 +34,7 @@ const Login = ({ onLoginSuccess }) => { // Renamed prop to onLoginSuccess for cl
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center mt-10 mb-10">
       <div className="w-full max-w-md p-6 border rounded-lg shadow-md">
         <h2 className="mt-6 text-center text-2xl font-bold text-gray-900">
           Sign in to your account
