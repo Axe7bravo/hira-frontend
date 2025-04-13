@@ -38,16 +38,16 @@ const RentalSearchFilters = ({ onSearch }) => {
       amenities: [],
     });
   };
-
+ 
 
   return (
-    <div className="h-[64px] lg:h-[64px]  flex flex-row items-center justify-between border rounded-full mb-6">
-      <div className='px-6 '>
-        <h2 className="text-xl font-semibold mb-2">Search and Filters</h2>
+    <div className="h-[64px] lg:h-[64px] flex flex-row items-center  border rounded-full mb-6">
+      <div className='px-4 '>
+        <h2 className="text-l font-semibold mb-2">Search and Filters</h2>
       </div>
       <div className="hidden lg:block">
-        <div className="flex flex-row items-center justify-between">
-            <div className='px-6 flex flex-col ' >
+        <div className="flex flex-row items-center ">
+            <div className='px-4 flex flex-col ' >
             
             <input
                 type="text"
@@ -55,15 +55,15 @@ const RentalSearchFilters = ({ onSearch }) => {
                 value={filters.location}
                 onChange={handleInputChange}
                 placeholder='Location'
-                className="cursor-pointer w-[250px] h-[50px] px-8 flex flex-col justify-center border rounded-full hover:bg-gray-100"
+                className="cursor-pointer w-[200px] h-[50px] px-8 flex flex-col justify-center border rounded-full hover:bg-gray-100"
             />
             </div>
-            <div className='px-6 flex flex-col ' >
+            <div className='px-4 flex flex-col ' >
             <select
                 name="priceRange"
                 value={filters.priceRange}
                 onChange={handleInputChange}
-                className="cursor-pointer w-[250px] h-[50px] px-8 flex flex-col justify-center border rounded-full hover:bg-gray-100"
+                className="cursor-pointer w-[200px] h-[50px] px-8 flex flex-col justify-center border rounded-full hover:bg-gray-100"
             >
                 <option value="">Price Range</option>
                 <option value="0-1000">0 - 1000</option>
@@ -72,12 +72,12 @@ const RentalSearchFilters = ({ onSearch }) => {
                 <option value="3000+">3000+</option>
             </select>
             </div>
-            <div className='px-6 flex flex-col '>
+            <div className='px-4 flex flex-col '>
             <select
                 name="bedrooms"
                 value={filters.bedrooms}
                 onChange={handleInputChange}
-                className="cursor-pointer w-[250px] h-[50px] px-8 flex flex-col justify-center border rounded-full hover:bg-gray-100"
+                className="cursor-pointer w-[200px] h-[50px] px-8 flex flex-col justify-center border rounded-full hover:bg-gray-100"
             >
                 <option value="">Bedrooms</option>
                 <option value="1">1</option>
@@ -86,15 +86,16 @@ const RentalSearchFilters = ({ onSearch }) => {
                 <option value="4+">4+</option>
             </select>
             </div>
-            <div className='px-6 flex flex-col '>
+            <div className='px-4 flex flex-col '>
             <label className="block text-sm font-medium text-gray-700">Amenities:</label>
-            <div className="flex flex-wrap">
+            <div className="flex flex-wrap ">
                 <label className="mr-4">
                 <input
                     type="checkbox"
                     value="Wi-Fi"
                     checked={filters.amenities.includes('Wi-Fi')}
                     onChange={handleCheckboxChange}
+                    className="cursor-pointer"
                 />
                 <span className="ml-2">Wi-Fi</span>
                 </label>
@@ -104,6 +105,7 @@ const RentalSearchFilters = ({ onSearch }) => {
                     value="Furnished"
                     checked={filters.amenities.includes('Furnished')}
                     onChange={handleCheckboxChange}
+                    className="cursor-pointer"
                 />
                 <span className="ml-2">Furnished</span>
                 </label>
@@ -113,6 +115,7 @@ const RentalSearchFilters = ({ onSearch }) => {
                     value="Parking"
                     checked={filters.amenities.includes('Parking')}
                     onChange={handleCheckboxChange}
+                    className="cursor-pointer"
                 />
                 <span className="ml-2">Parking</span>
                 </label>
@@ -121,10 +124,10 @@ const RentalSearchFilters = ({ onSearch }) => {
             </div>
         </div>
       </div>
-      <div className='p-2 px-6 mb-3'>
+      <div className='flex flex-row px-6 '>
         <button
             onClick={handleSearch}
-            className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-full"
+            className="mt-4 cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-full"
         >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -134,7 +137,7 @@ const RentalSearchFilters = ({ onSearch }) => {
         </button>
         <button
           onClick={clearFilters}
-          className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-full"
+          className="mt-4 cursor-pointer bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-full"
         >
 
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5">
