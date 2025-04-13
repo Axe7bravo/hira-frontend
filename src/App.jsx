@@ -7,6 +7,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import OwnerDashboard from './pages/Owner-dashboard';
+import Contact from './pages/Contact';
+import About from './pages/About';
 import Footer from './components/Footer';
 import RentalListings from './pages/RentalListings';
 import Navbar from './components/Navbar';
@@ -82,6 +84,8 @@ function App() {
           <Route path="/venues" element={<div>Venues Page</div>} />
           <Route path="/cars" element={<div>Cars Page</div>} />
           <Route path="/jobs" element={<div>Jobs Page</div>} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </main>
       <Footer />
