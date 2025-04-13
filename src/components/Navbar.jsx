@@ -1,186 +1,234 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { MenuIcon, XIcon } from '@heroicons/react/solid';
-import { Button } from '@/components/ui/button';
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { Bars3Icon, BellIcon, XMarkIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-const Navbar = ({ isLoggedIn, userType, onLogout, username }) => {
-  //const navigate = useNavigate();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const navigation = [
+  { name: 'Rental', href: '/rentals' },
+  { name: 'Venues', href: '/venues' },
+  { name: 'Cars', href: '/cars' },
+  { name: 'Jobs', href: '/jobs' },
+];
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
 
+export default function Example() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userType, setUserType] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const storedUserType = localStorage.getItem('userType');
+    if (token && storedUserType) {
+      setIsLoggedIn(true);
+      setUserType(storedUserType);
+    } else {
+      setIsLoggedIn(false);
+      setUserType(null);
+    }
+  }, []);
+
+  const dashboardHref = userType === 'owner' ? '/owner-dashboard' : '/dashboard';
+  const profileImage = isLoggedIn
+    ? 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+    : <UserCircleIcon className="size-8 rounded-full text-gray-400" aria-hidden="true" />;
 
   return (
-    <nav className="bg-blue-800 shadow-md">
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex justify-between align-items-center">
-            <div className="flex-shrink-0 flex items-center">
-              <Link to="/" className="text-indigo-600 font-bold text-xl">
+    <Disclosure as="nav" className="bg-gray-800">
+      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div className="relative flex h-16 items-center justify-between">
+          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            {/* Mobile menu button*/}
+            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset">
+              <span className="absolute -inset-0.5" />
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
+              <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
+            </DisclosureButton>
+          </div>
+          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div className="flex shrink-0 items-center">
+              <Link to="/">
                 <img
-                  alt="Your Company"
+                  alt="Hira logo"
                   src="/src/assets/Hira_logo.png"
-                  className="mx-auto h-10 w-auto"
+                  className="h-8 w-auto"
                 />
               </Link>
             </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <Link
-                to="/rentals"
-                className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-neutral-50 hover:text-neutral-300 hover:border-gray-300"
-              >
-                Rentals
-              </Link>
-              <Link
-                to="/venues"
-                className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-neutral-50 hover:text-neutral-300 hover:border-gray-300"
-              >
-                Venues
-              </Link>
-              <Link
-                to="/cars"
-                className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-neutral-50 hover:text-neutral-300 hover:border-gray-300"
-              >
-                Cars
-              </Link>
-              <Link
-                to="/jobs"
-                className="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-neutral-50 hover:text-neutral-300 hover:border-gray-300"
-              >
-                Jobs
-              </Link>
+            <div className="hidden sm:ml-6 sm:block">
+              <div className="flex space-x-4">
+                {isLoggedIn && (
+                  <Link
+                    to={dashboardHref}
+                    className={classNames(
+                      location.pathname === dashboardHref ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      'rounded-md px-3 py-2 text-sm font-medium'
+                    )}
+                    aria-current={location.pathname === dashboardHref ? 'page' : undefined}
+                  >
+                    Dashboard
+                  </Link>
+                )}
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    aria-current={location.pathname === item.href ? 'page' : undefined}
+                    className={classNames(
+                      location.pathname === item.href ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      'rounded-md px-3 py-2 text-sm font-medium',
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
-          <div className="flex items-center ">
-            <div className=" flex-shrink-0 ">
-              {isLoggedIn ? (
-                <>
-                  {userType === 'owner' && (
-                    <Link
-                      to="/owner-dashboard"
-                      className=" mr-4 text-sm font-medium text-gray-500 hover:text-gray-700 "
-                    >
-                      Owner Dashboard
-                    </Link>
-                  )}
-                  <Link
-                    to="/dashboard"
-                    className=" mr-4 text-sm font-medium text-neutral-50 hover:text-gray-700  "
-                  >
-                    {username ? `Dashboard (${username})` : 'Dashboard'}
-                  </Link>
-                  <Button variant="ghost" onClick={onLogout}>
-                    Logout
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Link
-                    to="/login"
-                    className="text-sm font-medium text-neutral-50 hover:text-neutral-300"
-                  >
-                    Log in
-                  </Link>
-                  <Link
-                    to="/signup"
-                    className="ml-4 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-blue-800 bg-yellow-200 hover:bg-yellow-100"
-                  >
-                    Sign up
-                  </Link>
-                </>
-              )}
-            </div>
-            <div className="-mr-2 flex items-center sm:hidden">
-              <button
-                onClick={toggleMobileMenu}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <button
+              type="button"
+              className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
+            >
+              <span className="absolute -inset-1.5" />
+              <span className="sr-only">View notifications</span>
+              <BellIcon aria-hidden="true" className="size-6" />
+            </button>
+
+            {/* Profile dropdown */}
+            <Menu as="div" className="relative ml-3">
+              <div>
+              <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+                    <span className="absolute -inset-1.5" />
+                    <span className="sr-only">Open user menu</span>
+                    {isLoggedIn ? (
+                        <img
+                        alt=""
+                        src={profileImage}
+                        className="size-8 rounded-full"
+                        />
+                    ) : (
+                        <UserCircleIcon className="size-8 rounded-full text-gray-400" aria-hidden="true" />
+                    )}
+             </MenuButton>
+              </div>
+              <MenuItems
+                transition
+                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
               >
-                <span className="sr-only">Open main menu</span>
-                {isMobileMenuOpen ? (
-                  <XIcon className="block h-6 w-6" aria-hidden="true" />
+                {isLoggedIn ? (
+                  <>
+                    <MenuItem>
+                      <Link
+                        to="#"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                      >
+                        Your Profile
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link
+                        to="#"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                      >
+                        Settings
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <button
+                        onClick={() => {
+                          localStorage.removeItem('authToken');
+                          localStorage.removeItem('userType');
+                          setIsLoggedIn(false);
+                          setUserType(null);
+                          navigate('/login');
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                      >
+                        Sign out
+                      </button>
+                    </MenuItem>
+                  </>
                 ) : (
-                  <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                  <>
+                    <MenuItem>
+                      <Link
+                        to="/login"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                      >
+                        Log in
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link
+                        to="/signup"
+                        className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                      >
+                        Sign up
+                      </Link>
+                    </MenuItem>
+                  </>
                 )}
-              </button>
-            </div>
+              </MenuItems>
+            </Menu>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} sm:hidden`}>
-        <div className="pt-2 pb-3 space-y-1">
-          <Link
-            to="/rentals"
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-50 hover:bg-gray-50"
-          >
-            Rentals
-          </Link>
-          <Link
-            to="/venues"
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-50 hover:bg-gray-50"
-          >
-            Venues
-          </Link>
-          <Link
-            to="/cars"
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-50 hover:bg-gray-50"
-          >
-            Cars
-          </Link>
-          <Link
-            to="/jobs"
-            className="block px-3 py-2 rounded-md text-base font-medium text-neutral-50 hover:bg-gray-50"
-          >
-            Jobs
-          </Link>
+      <DisclosurePanel className="sm:hidden">
+        <div className="space-y-1 px-2 pt-2 pb-3">
+          {isLoggedIn && (
+            <DisclosureButton
+              as={Link}
+              to={dashboardHref}
+              className={classNames(
+                location.pathname === dashboardHref ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                'block rounded-md px-3 py-2 text-base font-medium'
+              )}
+              aria-current={location.pathname === dashboardHref ? 'page' : undefined}
+            >
+              Dashboard
+            </DisclosureButton>
+          )}
+          {navigation.map((item) => (
+            <DisclosureButton
+              key={item.name}
+              as={Link}
+              to={item.href}
+              aria-current={location.pathname === item.href ? 'page' : undefined}
+              className={classNames(
+                location.pathname === item.href ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                'block rounded-md px-3 py-2 text-base font-medium',
+              )}
+            >
+              {item.name}
+            </DisclosureButton>
+          ))}
+          {!isLoggedIn && (
+            <>
+              <DisclosureButton
+                as={Link}
+                to="/login"
+                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+              >
+                Log in
+              </DisclosureButton>
+              <DisclosureButton
+                as={Link}
+                to="/signup"
+                className="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+              >
+                Sign up
+              </DisclosureButton>
+            </>
+          )}
         </div>
-        <div className="pt-4 pb-3 border-t border-gray-200">
-          <div className="space-y-1">
-            {isLoggedIn ? (
-              <>
-                {userType === 'owner' && (
-                  <Link
-                    to="/owner-dashboard"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-neutral-50 hover:bg-gray-50"
-                  >
-                    Owner Dashboard
-                  </Link>
-                )}
-                <Link
-                  to="/dashboard"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-neutral-50 hover:bg-gray-50 "
-                >
-                  {username ? `Dashboard (${username})` : 'Dashboard'}
-                </Link>
-                <Button variant="ghost" onClick={onLogout}>
-                  Logout
-                </Button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="block px-3 py-2 rounded-md text-base font-medium text-neutral-50 hover:bg-gray-50"
-                >
-                  Log in
-                </Link>
-                <Link
-                  to="/signup"
-                  className="block w-full px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                >
-                  Sign up
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    </nav>
+      </DisclosurePanel>
+    </Disclosure>
   );
-};
-
-export default Navbar;
+}

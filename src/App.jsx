@@ -6,6 +6,7 @@ import ListingDetails from './pages/ListingDetails';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import OwnerDashboard from './pages/Owner-dashboard';
 import Footer from './components/Footer';
 import RentalListings from './pages/RentalListings';
 import Navbar from './components/Navbar';
@@ -39,11 +40,16 @@ function App() {
 
   const handleLoginSuccess = (userData) => {
     setIsLoggedIn(true);
-    setUsername(userData.username);
-    console.log(userData.username)
+    setUsername(userData.email); // Assuming your backend returns email as identifier
     setUserType(userData.userType);
-    localStorage.setItem('authToken', userData.token); // Store the token
-    navigate('/dashboard'); // Redirect to dashboard after successful login
+    localStorage.setItem('authToken', userData.token);
+    localStorage.setItem('userType', userData.userType); // Store userType
+
+    if (userData.userType === 'owner') {
+      navigate('/owner-dashboard');
+    } else {
+      navigate('/dashboard');
+    }
   };
 
   // Array of routes where the Navbar should NOT be displayed
@@ -51,7 +57,7 @@ function App() {
   const shouldShowNavbar = !hideNavbarRoutes.includes(location.pathname);
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       {shouldShowNavbar && (
         <Navbar
           isLoggedIn={isLoggedIn}
@@ -70,8 +76,8 @@ function App() {
             element={<Login onLoginSuccess={handleLoginSuccess} />}
           />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/owner-dashboard" element={<div>Owner Dashboard Content</div>} />
+          <Route path="/dashboard" element={<Dashboard/>} />
+          <Route path="/owner-dashboard" element={<OwnerDashboard/>} />
           <Route path="/rentals" element={<RentalListings />} />
           <Route path="/venues" element={<div>Venues Page</div>} />
           <Route path="/cars" element={<div>Cars Page</div>} />
@@ -79,7 +85,7 @@ function App() {
         </Routes>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 
