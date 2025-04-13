@@ -3,12 +3,18 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-800 text-white p-6 mt-auto ">
+    <footer className="bg-gray-800 text-white p-6 mt-auto ">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <div className="mb-4 md:mb-0">
-          <Link to="/" className="text-xl font-bold">
-            Hira
-          </Link>
+        <div className="flex shrink-0 items-center">
+              <Link to="/">
+                <img
+                  alt="Hira logo"
+                  src="/src/assets/Hira_logo.png"
+                  className="h-8 w-auto"
+                />
+              </Link>
+            </div>
           <p className="text-sm mt-2">
             Your one-stop platform for rentals, venues, jobs, and more in Lesotho.
           </p>
