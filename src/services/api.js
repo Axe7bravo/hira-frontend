@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+
 
 const API_BASE_URL = 'http://localhost:5000'; // Or your production URL
 
@@ -18,8 +20,10 @@ export const registerUser = async (email, password, userType) => {
 export const loginUser = async (email, password) => {
   try {
     const response = await api.post('/auth/login', { email, password });
+    alert('Login successful!');
     return response.data;
   } catch (error) {
+    alert('Login failed. Please check your credentials. O jele flopo');
     throw error.response.data;
   }
 };

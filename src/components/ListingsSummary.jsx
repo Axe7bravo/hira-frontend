@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export function ListingsSummary () {
+const  ListingsSummary = () => {
   // Placeholder listings data
   const listings = [
     { id: 1, title: 'Cozy Apartment', location: 'New York', price: '$1500/month' },
@@ -14,7 +14,7 @@ export function ListingsSummary () {
   ];
 
   return (
-    
+    <div className='container'>
     <Card>
       <CardHeader>
         <CardTitle>Searched Listing Summary</CardTitle>
@@ -33,6 +33,9 @@ export function ListingsSummary () {
         </ScrollArea>
       </CardContent>
     </Card>
+    </div>
     
   );
 };
+
+export default ListingsSummary;

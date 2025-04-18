@@ -9,9 +9,9 @@ const Dashboard = () => {
 
 
   return (
-    <div className='container'>
+    
       <Dash />
-    </div>
+    
   );
 };
 

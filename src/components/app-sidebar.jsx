@@ -1,21 +1,19 @@
 import * as React from "react"
+import { Link } from 'react-router-dom';
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
+  House,
+  BriefcaseBusiness,
+  Warehouse,
   Frame,
-  GalleryVerticalEnd,
+
   Map,
   PieChart,
-  Settings2,
-  SquareTerminal,
+  CarFront,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
@@ -24,7 +22,6 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-import { ListingsSummary } from "./ListingsSummary"
 
 // This is sample data.
 const data = {
@@ -33,48 +30,35 @@ const data = {
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
   navMain: [
     {
-      title: "Housing",
+      title: "Rentals",
       url: "#",
-      icon: SquareTerminal,
+      icon: House,
       isActive: true,
       items: [
         {
-          title: "Summary",
-          url: "/",
+          title: "Searched History",
+          url: "/dashboard/rentals/summary",
         },
         {
-          title: "Favourited",
-          url: "/",
+          title: "Saved Searches",
+          url: "#",
         },
         {
-          title: "Settings",
-          url: "/",
+          title: "Recently viewed",
+          url: "#",
+        },
+        {
+          title: "Recommendations",
+          url: "#",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Venues",
       url: "#",
-      icon: Bot,
+      icon: Warehouse,
       items: [
         {
           title: "Genesis",
@@ -91,9 +75,9 @@ const data = {
       ],
     },
     {
-      title: "Documentation",
+      title: "Jobs",
       url: "#",
-      icon: BookOpen,
+      icon: BriefcaseBusiness,
       items: [
         {
           title: "Introduction",
@@ -114,9 +98,9 @@ const data = {
       ],
     },
     {
-      title: "Settings",
+      title: "Cars",
       url: "#",
-      icon: Settings2,
+      icon: CarFront,
       items: [
         {
           title: "General",
@@ -160,11 +144,18 @@ export function AppSidebar({
   ...props
 }) {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+    <Sidebar variant="inset" collapsible="icon" {...props}>
+      <SidebarHeader className="items-center">
+                    
+          <Link to="/">
+            <img
+              alt="Hira logo"
+              src="/src/assets/Hira_logo.png"
+              className="h-9 w-auto"
+            />
+          </Link>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent >
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>

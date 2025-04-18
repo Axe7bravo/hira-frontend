@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SignupForm from '../components/SignupForm';
 import { registerUser } from '../services/api'; // Import the registerUser service
-import Navbar from '@/components/Navbar';
 
 const Signup = () => {
   const [signupError, setSignupError] = useState('');

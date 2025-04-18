@@ -1,6 +1,7 @@
 "use client"
 
 import { ChevronRight } from "lucide-react";
+import { Link } from 'react-router-dom';
 
 import {
   Collapsible,
@@ -22,7 +23,7 @@ export function NavMain({
   items
 }) {
   return (
-    <SidebarGroup>
+    <SidebarGroup >
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
@@ -37,17 +38,17 @@ export function NavMain({
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
                   <ChevronRight
-                    className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                    className="ml-auto  transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                 </SidebarMenuButton>
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <SidebarMenuSub>
+                <SidebarMenuSub >
                   {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
-                      <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
-                          <span>{subItem.title}</span>
-                        </a>
+                    <SidebarMenuSubItem className="hover:bg-sky-600 rounded-md " key={subItem.title}>
+                      <SidebarMenuSubButton  asChild>
+                        <Link to={subItem.url}>
+                          <span >{subItem.title}</span>
+                        </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}

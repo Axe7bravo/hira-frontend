@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const navigation = [
-  { name: 'Rental', href: '/rentals' },
+  { name: 'Rentals', href: '/rentals' },
   { name: 'Venues', href: '/venues' },
   { name: 'Cars', href: '/cars' },
   { name: 'Jobs', href: '/jobs' },
@@ -50,7 +50,7 @@ export default function Example() {
               <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
             </DisclosureButton>
           </div>
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div className="flex flex-1 cursor-pointer items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
               <Link to="/">
                 <img
@@ -93,7 +93,7 @@ export default function Example() {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button
               type="button"
-              className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
+              className="relative rounded-full bg-gray-800 p-1 cursor-pointer text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden"
             >
               <span className="absolute -inset-1.5" />
               <span className="sr-only">View notifications</span>
@@ -113,7 +113,7 @@ export default function Example() {
                         className="size-8 rounded-full"
                         />
                     ) : (
-                        <UserCircleIcon className="size-8 rounded-full text-gray-400" aria-hidden="true" />
+                        <UserCircleIcon className="size-8  rounded-full text-gray-400" aria-hidden="true" />
                     )}
              </MenuButton>
               </div>

@@ -1,16 +1,12 @@
-
 import React, { useState } from 'react';
 import RentalList from '../components/RentalList';
 import RentalSearchFilters from '../components/RentalSearchFilters';
 import Notification from '../components/Notification';
-import Navbar from '../components/Navbar'
+import { addRentalSearchToHistory } from '../utils/rentalSearchHistory'; // Import the function
 
 
 const RentalListings = () => {
-    
 
-  
- 
 
   // Dummy data for saved listings (replace with actual data fetching)
   const dummySavedListings = [
@@ -72,11 +68,17 @@ const RentalListings = () => {
   const [notification, setNotification] = useState(null);
 
 
-
   const handleSearch = (filters) => {
-    let filteredListings = [...originalListings];;
+    let filteredListings = [...originalListings];
     let errors = {}; // Object to store error messages
-  
+    let hasActiveFilters = false;
+
+    // Check if any filter has a non-default value
+    if (filters.location) hasActiveFilters = true;
+    if (filters.priceRange) hasActiveFilters = true;
+    if (filters.bedrooms) hasActiveFilters = true;
+    if (filters.amenities.length > 0) hasActiveFilters = true;
+
     // Location filter
     if (filters.location) {
       if (typeof filters.location !== 'string') {
@@ -87,7 +89,7 @@ const RentalListings = () => {
         );
       }
     }
-  
+
     // Price range filter
     if (filters.priceRange) {
       const priceRangeParts = filters.priceRange.split('-');
@@ -96,7 +98,7 @@ const RentalListings = () => {
       } else {
         const minPrice = parseInt(priceRangeParts[0]);
         const maxPrice = priceRangeParts[1] ? parseInt(priceRangeParts[1]) : null;
-  
+
         if (isNaN(minPrice) || (maxPrice !== null && isNaN(maxPrice))) {
           errors.priceRange = 'Invalid price values.';
         } else {
@@ -112,7 +114,7 @@ const RentalListings = () => {
         }
       }
     }
-  
+
     // Bedrooms filter
     if (filters.bedrooms) {
       const bedroomsValue = parseInt(filters.bedrooms);
@@ -121,16 +123,16 @@ const RentalListings = () => {
       } else {
         if (filters.bedrooms.includes('+')) {
           filteredListings = filteredListings.filter(
-            (listing) => listing.bedrooms >= bedroomsValue
+            (listing) => listing.bedroom >= bedroomsValue
           );
         } else {
           filteredListings = filteredListings.filter(
-            (listing) => listing.bedrooms === bedroomsValue
+            (listing) => listing.bedroom === bedroomsValue
           );
         }
       }
     }
-  
+
     // Amenities filter
     if (filters.amenities.length > 0) {
       if (!Array.isArray(filters.amenities)) {
@@ -141,14 +143,18 @@ const RentalListings = () => {
         );
       }
     }
-  
+
     if (Object.keys(errors).length > 0) {
       setNotification({ message: 'Please fix the errors below.', type: 'error' });
       return;
     } else {
-      setNotification({ message: 'Search successful!', type: 'success' });
+      // Only show the success notification if there were active filters
+      if (hasActiveFilters) {
+        setNotification({ message: 'Search successful!', type: 'success' });
+        addRentalSearchToHistory(filters); // Still save the search if filters were applied
+      }
     }
-  
+
     setListings(filteredListings);
   };
 
@@ -158,31 +164,34 @@ const RentalListings = () => {
 
 
   return (
-    <>
-    
-    <div >
-      
-          {notification && (
-            <Notification
-              message={notification.message}
-              type={notification.type}
-              onClose={handleCloseNotification}
-            />
-          )}
+
+
+    <div>
+      {notification && (
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          onClose={handleCloseNotification}
+        />
+      )}
+
+
+      <h1 className='text-center text-4xl mt-6 mb-6 '>Available Listings</h1>
+
+      <RentalSearchFilters onSearch={handleSearch} />
+
 
       
-      <h1 className='text-center text-4xl mt-6 mb-6 '>Available Listings</h1>
-      <RentalSearchFilters onSearch={handleSearch} />
       {listings.length > 0 ? (
         <RentalList listings={listings} />
       ) : (
-        <p>You have no saved listings.</p>
+        <p>No listings found based on your search criteria.</p>
       )}
-     
-
-
     </div>
-    </>
+
+
+    
+
   );
 };
 

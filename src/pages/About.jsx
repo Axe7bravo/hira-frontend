@@ -1,16 +1,28 @@
 const people = [
     {
       name: 'Thato Nkoko',
-      role: 'Co-Founder / CEO',
+      role: 'Founder / CEO',
       imageUrl:
         'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
     },
+    {
+        name: 'Motlatsi Chabana',
+        role: 'Co-Founder / Marketing',
+        imageUrl:
+          'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    },
+    {
+        name: 'Thabo Mafereka',
+        role: 'Co-Founder / Sales',
+        imageUrl:
+          'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      },
     // More people...
   ]
   
   export default function About() {
     return (
-      <div className="bg-white py-24 sm:py-32">
+      <div className="bg-gradient-to-r from-blue-200 to-blue-400 py-24 sm:py-32">
         <div className="mx-auto grid max-w-7xl gap-20 px-6 lg:px-8 xl:grid-cols-3">
           <div className="max-w-xl">
             <h2 className="text-3xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-4xl">
