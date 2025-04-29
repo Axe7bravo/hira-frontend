@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { WifiIcon, CircleParking, WashingMachine, Bed } from 'lucide-react';
 
 const ListingDetails = () => {
   const { id } = useParams();
@@ -48,19 +49,10 @@ const ListingDetails = () => {
   }
 
   const amenityIcons = {
-    'Wi-Fi': <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="mr-2 h-4 w-4">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-  </svg>
-  ,
-    'Furnished': <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="mr-2 h-4 w-4">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-  </svg>,
-    'Parking': <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="mr-2 h-4 w-4">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 0 1 7.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 0 1 1.06 0Z" />
-  </svg>,
-    'Laundry': <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="mr-2 h-4 w-4">
-      <path fillRule="evenodd" d="M7.72 2.47a.75.75 0 011.06 0l7.5 7.5a.75.75 0 11-1.06 1.06L12 4.31V16.5a5.25 5.25 0 01-10.5 0V5.75a.75.75 0 111.5 0v10.75a3.75 3.75 0 007.5 0V4.31l-5.72 5.72a.75.75 0 11-1.06-1.06l7.5-7.5a.75.75 0 010 1.06L8.78 10.53a.75.75 0 01-1.06 0L3.09 5.91a.75.75 0 011.06-1.06L7.72 2.47z" clipRule="evenodd" />
-    </svg>,
+    'Wi-Fi': <WifiIcon className="mr-2 h-4 w-4"/>,
+    'Furnished': <Bed className="mr-2 h-4 w-4"/>,
+    'Parking': <CircleParking className="mr-2 h-4 w-4"/>,
+    'Laundry': <WashingMachine className="mr-2 h-4 w-4"/>,
   };
 
   return (
@@ -115,13 +107,13 @@ const ListingDetails = () => {
           <div className="flex justify-between items-center">
             <div>
               <h3 className="text-xl font-semibold">
-                 {listing.price}
+                 M {listing.price}
               </h3>
               <p className="text-sm text-muted-foreground">per month</p>
             </div>
             <div className="space-x-2">
               <Button variant="outline">Contact</Button>
-              <Button variant="link">Book Now</Button>
+              <Button variant="outline">Book Now</Button>
             </div>
           </div>
         </CardContent>

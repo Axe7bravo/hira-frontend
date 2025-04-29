@@ -39,7 +39,7 @@ const data = {
       items: [
         {
           title: "Searched History",
-          url: "/dashboard/rentals/summary",
+          url: "/dashboard/rentals/history",
         },
         {
           title: "Saved Searches",

@@ -44,7 +44,10 @@ const Dashboard = () => {
               </Breadcrumb>
             </div>
           </header>
+          <div className='flex justify-center  items-center'>
           <Outlet/>
+          </div>
+          
         </SidebarInset>
       </SidebarProvider>
 

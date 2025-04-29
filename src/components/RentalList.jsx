@@ -16,7 +16,7 @@ const RentalList = ({ listings }) => {
               <h3 className="text-lg font-semibold mb-2">{listing.title}</h3>
               <p className="text-gray-700 mb-2">{listing.description}</p>
               <p className="text-gray-700 mb-2">Bedrooms: {listing.bedroom}</p>
-              <p className="text-gray-700 mb-2">Price: ${listing.price}</p>
+              <p className="text-gray-700 mb-2">Price: M{listing.price}</p>
               <p className="text-gray-700 mb-2">Location: {listing.location}</p>
               <Link
                 to={`/listing/${listing.id}`}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, } from 'react-router-dom';
 import Home from './pages/Home';
-import Search from './pages/Search';
 import ListingDetails from './pages/ListingDetails';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -11,6 +10,7 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import RentalListings from './pages/RentalListings';
 import ListingsSummary from './components/ListingsSummary';
+import RentalSearchHistoryDisplay from './components/RentalSearchHistoryDisplay';
 import MainLayout from './layouts/MainLayout'; // Import MainLayout
 
 function App() {
@@ -63,7 +63,6 @@ function App() {
           onLogout={handleLogout}
         />}>
           <Route index element={<Home />} />
-          <Route path="/search" element={<Search />} />
           <Route path="/listing/:id" element={<ListingDetails />} />
           <Route path="/rentals" element={<RentalListings />} />
           <Route path="/contact" element={<Contact />} />
@@ -77,7 +76,7 @@ function App() {
 
         {/* Dashboard route with its own layout (including Sidebar) */}
         <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="rentals/summary" element={<ListingsSummary />} />
+          <Route path="rentals/history" element={<RentalSearchHistoryDisplay />} />
           
           {/* Add other dashboard sub-routes here */}
         </Route>

@@ -14,10 +14,11 @@ const  ListingsSummary = () => {
   ];
 
   return (
-    <div className='container'>
-    <Card>
+    <>
+    
+    <Card className="border-none">
       <CardHeader>
-        <CardTitle>Searched Listing Summary</CardTitle>
+        
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[300px]">
@@ -33,7 +34,8 @@ const  ListingsSummary = () => {
         </ScrollArea>
       </CardContent>
     </Card>
-    </div>
+    </>
+    
     
   );
 };
